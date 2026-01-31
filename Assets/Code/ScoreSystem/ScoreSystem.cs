@@ -13,7 +13,7 @@ namespace Code.ScoreSystem
         private List<ScoreType> scoreTypes;
 
         private bool _timerOn;
-        
+
         public float CurrentTimeLeft { get; private set; }
         
 
@@ -37,7 +37,7 @@ namespace Code.ScoreSystem
             StartCoroutine(TimerCoroutine());
         }
 
-        public void SaveTotalScore()
+        public void SaveTotalScore(string username)
         {
             var finalScore = 0;
             foreach (var level in levels)
@@ -47,7 +47,6 @@ namespace Code.ScoreSystem
                 finalScore += level.Score;
             }
             
-            //GetUserName
             //SaveScore
         }
 
@@ -65,6 +64,5 @@ namespace Code.ScoreSystem
                 yield return new WaitForEndOfFrame();
             }
         }
-        
     }
 }
