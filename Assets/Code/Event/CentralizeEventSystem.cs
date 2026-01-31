@@ -1,13 +1,16 @@
 
 #nullable enable
+using Assets.Code.Service;
 using System;
 using System.Collections.Generic;
 
 namespace Systems.CentralizeEventSystem
 {
-    public class CentralizeEventSystem
+    public class CentralizeEventSystem : IService
     {
         private readonly Dictionary<Type, Delegate?> _events = new();
+
+        bool IService.IsPersistance => false;
 
         public void Register<TDelegate>(TDelegate del) where TDelegate : Delegate
         {

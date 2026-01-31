@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Code.Service;
+using Systems.CentralizeEventSystem;
 using UnityEngine;
 
 namespace Assets.Code.Manager
@@ -13,6 +14,7 @@ namespace Assets.Code.Manager
         private void Awake()
         {
             ServiceProvider.Instance.AddService<InputManager>(new InputManager());
+            ServiceProvider.Instance.AddService<InputManager>(new CentralizeEventSystem());
         }
     }
 }
