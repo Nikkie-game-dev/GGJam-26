@@ -9,7 +9,7 @@ namespace Assets.Code.SceneManagerController
     public class SceneLoader
     {
 #if UNITY_EDITOR
-        [SerializeField] private SceneRef exclude;
+        [SerializeField] private SceneRef _exclude;
 #endif
 
         public SceneLoader()

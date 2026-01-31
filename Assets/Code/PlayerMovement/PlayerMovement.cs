@@ -1,6 +1,7 @@
 ﻿using Assets.Code.Service;
 using Systems.TagClassGenerator;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Player
 {
@@ -14,8 +15,8 @@ namespace Code.Player
 
         private Rigidbody _rb;
 
-        [SerializeField] private float _jumpForce = 10;
-        [SerializeField] private float _moveForce = 100;
+        [FormerlySerializedAs("_jumpForce")] [SerializeField] private float jumpForce = 10;
+        [FormerlySerializedAs("_moveForce")] [SerializeField] private float moveForce = 100;
 
         private bool _isMoving = false;
 
@@ -49,14 +50,14 @@ namespace Code.Player
 
         private void OnMove()
         {
-            _rb.AddForce((MovementDir > 0 ? Vector3.right : Vector3.left) * Time.deltaTime * _moveForce, ForceMode.Force);
+            _rb.AddForce((MovementDir > 0 ? Vector3.right : Vector3.left) * Time.deltaTime * moveForce, ForceMode.Force);
         }
 
         private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext _)
         {
             if (_canJump)
             {
-                _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+                _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 _canJump = false;
             }
         }
