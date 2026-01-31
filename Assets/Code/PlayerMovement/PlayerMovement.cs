@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Code.Service;
 using Systems.LayerClassGenerator;
 using Systems.TagClassGenerator;
+using Systems.LayerClassGenerator;
 using UnityEngine;
 
 namespace Assets.Code.Player
@@ -69,8 +70,8 @@ namespace Assets.Code.Player
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.CompareTag(Layers.Ground))
-                _canJump = true;
+         //   if (collision.collider.CompareTag(Layers.Ground))
+           //     _canJump = true;
         }
 
         private void OnDisable()
