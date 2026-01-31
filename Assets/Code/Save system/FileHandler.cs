@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class PlayerDataHandler : MonoBehaviour
 {
-    private FileHandler<List<PlayerData>> fileHandler;
-    [SerializeField] string dataFileName;
-    private List<PlayerData> data;
+    private FileHandler<List<PlayerData>> _fileHandler;
+    [SerializeField] private string _dataFileName;
+    private List<PlayerData> _data;
 
     private void Start()
     {
-        fileHandler = new FileHandler<List<PlayerData>>(Application.persistentDataPath, dataFileName);
+        _fileHandler = new FileHandler<List<PlayerData>>(Application.persistentDataPath, _dataFileName);
     }
 
     public void SavePlayerData(string name, int score)
     {
-        data = fileHandler.Load();
+        _data = _fileHandler.Load();
 
-        if (data == null)
-            data = new List<PlayerData>();
+        if (_data == null)
+            _data = new List<PlayerData>();
 
-        data.Add(new(name, score));
+        _data.Add(new(name, score));
 
-        fileHandler.Save(data);
+        _fileHandler.Save(_data);
     }
 
     public List<PlayerData> GetAllPlayersData()
@@ -31,7 +31,7 @@ public class PlayerDataHandler : MonoBehaviour
 
         try
         {
-            playerDatas = fileHandler.Load();
+            playerDatas = _fileHandler.Load();
         }
         catch (System.Exception error)
         {
@@ -57,27 +57,27 @@ public struct PlayerData
 
 public class FileHandler<T>
 {
-    private string dataDirPath;
-    private string dataFileName;
+    private string _dataDirPath;
+    private string _dataFileName;
 
-    private string fullPath;
+    private string _fullPath;
 
     public FileHandler(string dataDirPath, string dataFileName)
     {
-        this.dataDirPath = dataDirPath;
-        this.dataFileName = dataFileName;
-        this.fullPath = Path.Combine(dataDirPath, dataFileName);
+        this._dataDirPath = dataDirPath;
+        this._dataFileName = dataFileName;
+        this._fullPath = Path.Combine(dataDirPath, dataFileName);
     }
 
     public void Save(T data)
     {
         try
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            Directory.CreateDirectory(Path.GetDirectoryName(_fullPath));
 
             string toStore = JsonUtility.ToJson(data);
 
-            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+            using (FileStream stream = new FileStream(_fullPath, FileMode.Create))
             {
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
@@ -100,7 +100,7 @@ public class FileHandler<T>
         {
             string dataToLoad = "";
 
-            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+            using (FileStream stream = new FileStream(_fullPath, FileMode.Create))
             {
                 using (StreamReader reader = new StreamReader(stream))
                 {
