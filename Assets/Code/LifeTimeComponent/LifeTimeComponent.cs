@@ -1,6 +1,5 @@
 using System;
-using Assets.Code.Manager;
-using Assets.Code.Service;
+using Code.Service;
 using Systems.CentralizeEventSystem;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,7 +33,7 @@ public class LifeTimeComponent : MonoBehaviour
 
         if (_currentLifeTime <= 0 && _centralizeEventSystem != null)
         {
-            _centralizeEventSystem.Get<OnLifeTimeEqualsZero>().Invoke();
+            _centralizeEventSystem.Get<OnLifeTimeEqualsZero>()?.Invoke();
         }
     }
 
