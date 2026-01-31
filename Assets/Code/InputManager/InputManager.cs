@@ -1,5 +1,4 @@
 using Assets.Code.Service;
-using UnityEngine;
 
 public sealed class InputManager : IService
 {
