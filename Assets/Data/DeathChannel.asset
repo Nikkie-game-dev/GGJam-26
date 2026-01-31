@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb9e00b3f1fe36743b386db274bd8cb1, type: 3}
-  m_Name: PatientData
-  m_EditorClassIdentifier: Assembly-CSharp::PatientData
-  patientType: 0
-  scoreValue: 0
-  healHoldSeconds: 2
+  m_Script: {fileID: 11500000, guid: b089fdf65746c244f8cee430b3ebf8bb, type: 3}
+  m_Name: DeathChannel
+  m_EditorClassIdentifier: Assembly-CSharp::DeathEventChannelSO

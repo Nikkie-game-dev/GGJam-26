@@ -5,12 +5,8 @@ using UnityEngine;
 public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
 {
     [Header("Config")]
-    [SerializeField] private PatientData data;
-
-    [Header("Visual")]
-    [SerializeField] private Renderer targetRenderer;
-    [SerializeField] private Color curedColor = new Color(0.7f, 1f, 0.7f, 1f);
-    [SerializeField] private string colorProperty = "_BaseColor";
+    [SerializeField] private PatientSO patientData;
+    [SerializeField] private ScoreStateSO scoreState;
 
 
     private bool playerInRange;
@@ -23,15 +19,12 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
 
     private void Reset()
     {
-        targetRenderer = GetComponentInChildren<Renderer>();
         var col = GetComponent<Collider>();
         col.isTrigger = true;
     }
 
     private void Awake()
     {
-        if (targetRenderer == null)
-            targetRenderer = GetComponentInChildren<Renderer>();
 
         var col = GetComponent<Collider>();
         col.isTrigger = true;
@@ -45,7 +38,7 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
 
         holdTimer += Time.deltaTime;
 
-        if (holdTimer >= data.healHoldSeconds)
+        if (holdTimer >= patientData.healHoldSeconds)
         {
             CompleteCure();
         }
@@ -76,23 +69,14 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
     {
         cured = true;
         isHolding = false;
+        scoreState.Add(patientData.scoreValue);
+        Destroy(this.gameObject, 0.1f);
 
-        //HighscoreManager.Instance.AddScore(data.scoreValue);
-
-        //ApplyColor(curedColor);
-        //Debug.Log($"[Patient] CURED CONFIRMED '{name}' at time={Time.time:F2}", this);
         GetComponent<Collider>().enabled = false;
 
 
     }
-    private void ApplyColor(Color c)
-    {
-        if (targetRenderer = null) return;
 
-        targetRenderer.GetPropertyBlock(mpb);
-        mpb.SetColor(colorProperty, c);
-        targetRenderer.SetPropertyBlock(mpb);
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

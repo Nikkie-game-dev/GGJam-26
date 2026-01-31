@@ -129,8 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatientHoldInteract
   data: {fileID: 11400000, guid: 931cd95b6877f95459560ee73cbb8b3a, type: 2}
-  spriteRenderer: {fileID: 0}
+  targetRenderer: {fileID: 0}
   curedColor: {r: 0.7, g: 1, b: 0.7, a: 1}
+  colorProperty: _BaseColor
+  scoreState: {fileID: 11400000, guid: 096cb6cae4fd80d4991536f28e3650a8, type: 2}
 --- !u!114 &7953759023149596104
 MonoBehaviour:
   m_ObjectHideFlags: 0
