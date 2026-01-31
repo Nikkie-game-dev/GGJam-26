@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Code.ServiceProvider
+namespace Assets.Code.Service
 {
-    internal interface IService
+    public interface IService
     {
         internal bool IsPersistance { get; }
     }
