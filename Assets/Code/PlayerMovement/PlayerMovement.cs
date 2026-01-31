@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Code.Service;
-using Systems.LayerClassGenerator;
+﻿using Assets.Code.Service;
 using Systems.TagClassGenerator;
 using UnityEngine;
 
