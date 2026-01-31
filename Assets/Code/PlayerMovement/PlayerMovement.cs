@@ -63,7 +63,7 @@ namespace Code.Player
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.CompareTag(Layers.Ground))
+            if (collision.collider.CompareTag(Tags.Ground))
                 _canJump = true;
         }
 
