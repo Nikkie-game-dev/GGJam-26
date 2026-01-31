@@ -14,7 +14,7 @@ namespace Code.Characters.Rats.RatStates
 
         public override void Tick(float deltaTime)
         {
-            RB.AddForce(Vector3.up * MovementForce * deltaTime, ForceMode.Force);
+            RB.AddForce(Vector3.up * (MovementForce * deltaTime), ForceMode.Force);
         }
 
         public override void OnCollision(Collision collider)
