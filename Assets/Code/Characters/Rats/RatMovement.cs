@@ -3,11 +3,6 @@ using UnityEngine;
 
 namespace Code.Characters.Rats
 {
-    enum RatsStates
-    {
-        Verital,
-        Orizontal
-    }
 
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(BoxCollider))]
