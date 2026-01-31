@@ -2,7 +2,7 @@
 using Systems.TagClassGenerator;
 using UnityEngine;
 
-namespace Assets.Code.Player
+namespace Code.Player
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
