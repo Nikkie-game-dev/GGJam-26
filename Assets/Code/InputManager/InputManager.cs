@@ -1,17 +1,19 @@
-using Assets.Code.Service;
-using UnityEngine;
+using Code.Service;
 
-public sealed class InputManager : IService
+namespace Code.InputMG
 {
-    private InputSystem_Actions inputSystem;
-
-    public InputManager()
+    public sealed class InputManager : IService
     {
-        inputSystem = new InputSystem_Actions();
-        inputSystem.Player.Enable();
+        private InputSystem_Actions _inputSystem;
+
+        public InputManager()
+        {
+            _inputSystem = new InputSystem_Actions();
+            _inputSystem.Player.Enable();
+        }
+
+        bool IService.IsPersistance => true;
+
+        public InputSystem_Actions InputSystem => _inputSystem;
     }
-
-    bool IService.IsPersistance => true;
-
-    public InputSystem_Actions InputSystem => inputSystem;
 }
