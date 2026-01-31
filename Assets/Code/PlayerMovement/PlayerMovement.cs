@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Code.Service;
+using Systems.LayerClassGenerator;
+using Systems.TagClassGenerator;
 using UnityEngine;
 
 namespace Assets.Code.Player
@@ -28,7 +30,7 @@ namespace Assets.Code.Player
             _rb = GetComponent<Rigidbody>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Jump.started += OnJump;
             ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.started += OnMoveStarted;
@@ -67,7 +69,15 @@ namespace Assets.Code.Player
 
         private void OnCollisionEnter(Collision collision)
         {
-            _canJump = true;
+            if (collision.collider.CompareTag(Layers.Ground))
+                _canJump = true;
+        }
+
+        private void OnDisable()
+        {
+            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Jump.started -= OnJump;
+            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.started -= OnMoveStarted;
+            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.canceled -= OnMoveCanceled;
         }
     }
 }
