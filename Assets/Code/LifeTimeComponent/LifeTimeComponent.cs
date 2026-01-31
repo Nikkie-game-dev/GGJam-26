@@ -1,10 +1,7 @@
-using System;
-using Assets.Code.Manager;
-using Assets.Code.Service;
+using Code.Service;
 using Systems.CentralizeEventSystem;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
+
 
 
 public delegate void OnLifeTimeEqualsZero();
