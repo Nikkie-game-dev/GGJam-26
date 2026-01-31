@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Code.Service;
 using UnityEngine;
 
-namespace Assets.Code.ServiceProvider
+namespace Assets.Code.Manager
 {
-    internal class GameManager : MonoBehaviour
+    public sealed class GameManager : MonoBehaviour
     {
         private void Awake()
         {
