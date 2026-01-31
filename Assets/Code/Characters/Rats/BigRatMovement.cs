@@ -42,16 +42,12 @@ namespace Code.Characters.RatsMovBig
 
         public void SetState(IStatable.MovementAxis state)
         {
-            switch ((IStatable.MovementAxis)state)
+            _currentState = state switch
             {
-                case IStatable.MovementAxis.Horizontal:
-                    _currentState = horizontalMovement;
-                    break;
-
-                case IStatable.MovementAxis.Vertical:
-                    _currentState = verticalMovement;
-                    break;
-            }
+                IStatable.MovementAxis.Horizontal => _horizontalMovement,
+                IStatable.MovementAxis.Vertical => _verticalMovement,
+                _ => _currentState
+            };
         }
 
     }
