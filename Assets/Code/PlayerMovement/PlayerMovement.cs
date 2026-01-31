@@ -1,4 +1,4 @@
-﻿using Assets.Code.Service;
+﻿using Code.Service;
 using Systems.TagClassGenerator;
 using UnityEngine;
 using UnityEngine.Serialization;

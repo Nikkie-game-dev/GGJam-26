@@ -1,4 +1,4 @@
-using Assets.Code.Service;
+using Code.Service;
 
 namespace Code.InputMG
 {

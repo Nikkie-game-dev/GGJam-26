@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.Service
+﻿namespace Code.Service
 {
     public interface IService
     {

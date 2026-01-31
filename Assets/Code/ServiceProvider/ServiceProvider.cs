@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.Service
+namespace Code.Service
 {
     public sealed class ServiceProvider
     {

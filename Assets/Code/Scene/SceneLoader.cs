@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Code.SceneManagerController
+namespace Code.SceneManagerController
 {
     public class SceneLoader
     {

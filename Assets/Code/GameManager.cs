@@ -1,9 +1,9 @@
-﻿using Assets.Code.Service;
+﻿using Code.Service;
 using Code.InputMG;
 using Systems.CentralizeEventSystem;
 using UnityEngine;
 
-namespace Assets.Code.Manager
+namespace Code.Manager
 {
     public sealed class GameManager : MonoBehaviour
     {
