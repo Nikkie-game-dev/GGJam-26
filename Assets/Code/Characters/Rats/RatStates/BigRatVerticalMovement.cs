@@ -1,7 +1,7 @@
 ﻿using Systems.TagClassGenerator;
 using UnityEngine;
 
-namespace Assets.Code.Characters.Rats.RatStates
+namespace Code.Characters.Rats.RatStates
 {
     public class BigRatVerticalMovement : RatState
     {

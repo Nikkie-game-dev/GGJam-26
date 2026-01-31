@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.Characters.Rats.RatStates
+﻿namespace Code.Characters.Rats.RatStates
 {
     public interface IStatable
     {

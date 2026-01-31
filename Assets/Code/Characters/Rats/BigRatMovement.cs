@@ -1,4 +1,4 @@
-﻿using Assets.Code.Characters.Rats.RatStates;
+﻿using Code.Characters.Rats.RatStates;
 using UnityEngine;
 
 namespace Assets.Code.Characters.Rats

@@ -1,9 +1,4 @@
-﻿using Assets.Code.Characters.Rats.RatStates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Code.Characters.Rats.RatStates;
 using UnityEngine;
 
 namespace Code.Characters.Rats
