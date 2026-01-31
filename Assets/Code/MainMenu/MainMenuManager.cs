@@ -98,8 +98,8 @@ public class MainMenuManager : MonoBehaviour
 
     private IEnumerator SettingsButton_Implementation()
     {
+        yield return  StartCoroutine(TabTransitionCoroutine(_currentTab, _settingsTab, true));
         _currentTab = _settingsTab;
-        yield return  StartCoroutine(TabTransitionCoroutine(_mainTab, _settingsTab, true));
         bIsAnyCoroutineActive = false;
     }
     private IEnumerator CloseGameButton_Implementation()
@@ -149,7 +149,7 @@ public class MainMenuManager : MonoBehaviour
         }
 
         tabOut.alpha = 0;
-        if (!bDeactivateObject)
+        if (bDeactivateObject)
             tabOut.gameObject.SetActive(false);
     }
     private IEnumerator FadeInTab(CanvasGroup tabIn)

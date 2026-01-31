@@ -14,7 +14,7 @@ namespace Assets.Code.Manager
         private void Awake()
         {
             ServiceProvider.Instance.AddService<InputManager>(new InputManager());
-            ServiceProvider.Instance.AddService<InputManager>(new CentralizeEventSystem());
+            ServiceProvider.Instance.AddService<CentralizeEventSystem>(new CentralizeEventSystem());
         }
     }
 }
