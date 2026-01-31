@@ -8,7 +8,7 @@ namespace Code.Player
     [RequireComponent(typeof(Collider))]
     public class PlayerMovement : MonoBehaviour
     {
-        private float MovementDir => ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.MovingDir.ReadValue<float>();
+        private float MovementDir => ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.MovingDir.ReadValue<float>();
 
         private bool _canJump = false;
 
@@ -26,9 +26,9 @@ namespace Code.Player
 
         private void OnEnable()
         {
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Jump.started += OnJump;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.started += OnMoveStarted;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.canceled += OnMoveCanceled;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Jump.started += OnJump;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.started += OnMoveStarted;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.canceled += OnMoveCanceled;
         }
 
         private void Update()
@@ -69,9 +69,9 @@ namespace Code.Player
 
         private void OnDisable()
         {
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Jump.started -= OnJump;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.started -= OnMoveStarted;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.canceled -= OnMoveCanceled;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Jump.started -= OnJump;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.started -= OnMoveStarted;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.canceled -= OnMoveCanceled;
         }
     }
 }

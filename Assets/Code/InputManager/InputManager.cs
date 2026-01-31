@@ -1,16 +1,19 @@
 using Assets.Code.Service;
 
-public sealed class InputManager : IService
+namespace Code.InputMG
 {
-    private InputSystem_Actions inputSystem;
-
-    public InputManager()
+    public sealed class InputManager : IService
     {
-        inputSystem = new InputSystem_Actions();
-        inputSystem.Player.Enable();
+        private InputSystem_Actions inputSystem;
+
+        public InputManager()
+        {
+            inputSystem = new InputSystem_Actions();
+            inputSystem.Player.Enable();
+        }
+
+        bool IService.IsPersistance => true;
+
+        public InputSystem_Actions InputSystem => inputSystem;
     }
-
-    bool IService.IsPersistance => true;
-
-    public InputSystem_Actions InputSystem => inputSystem;
 }
