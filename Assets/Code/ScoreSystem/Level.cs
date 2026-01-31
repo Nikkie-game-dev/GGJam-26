@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scenes.Code.ScoreSystem
+namespace Code.ScoreSystem
 {
     [Serializable]
     public class Level

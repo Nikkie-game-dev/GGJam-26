@@ -1,6 +1,6 @@
 using System;
 
-namespace Scenes.Code.ScoreSystem
+namespace Code.ScoreSystem
 {
     [Serializable]
     public struct ScoreType

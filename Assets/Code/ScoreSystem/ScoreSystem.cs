@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scenes.Code.ScoreSystem
+namespace Code.ScoreSystem
 {
     public class ScoreSystem : MonoBehaviour
     {
