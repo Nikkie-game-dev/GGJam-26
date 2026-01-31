@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Code.Service;
-using Systems.LayerClassGenerator;
+﻿using Code.Service;
 using Systems.TagClassGenerator;
 using Systems.LayerClassGenerator;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Assets.Code.Player
+namespace Code.Player
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
     public class PlayerMovement : MonoBehaviour
     {
-        private float MovementDir => ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.MovingDir.ReadValue<float>();
+        private float MovementDir => ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.MovingDir.ReadValue<float>();
 
         private bool _canJump = false;
 
         private Rigidbody _rb;
 
-        [SerializeField] private float _jumpForce = 10;
-        [SerializeField] private float _moveForce = 100;
+        [FormerlySerializedAs("_jumpForce")] [SerializeField] private float jumpForce = 10;
+        [FormerlySerializedAs("_moveForce")] [SerializeField] private float moveForce = 100;
 
         private bool _isMoving = false;
 
@@ -33,9 +28,9 @@ namespace Assets.Code.Player
 
         private void OnEnable()
         {
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Jump.started += OnJump;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.started += OnMoveStarted;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.canceled += OnMoveCanceled;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Jump.started += OnJump;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.started += OnMoveStarted;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.canceled += OnMoveCanceled;
         }
 
         private void Update()
@@ -56,29 +51,29 @@ namespace Assets.Code.Player
 
         private void OnMove()
         {
-            _rb.AddForce((MovementDir > 0 ? Vector3.right : Vector3.left) * Time.deltaTime * _moveForce, ForceMode.Force);
+            _rb.AddForce((MovementDir > 0 ? Vector3.right : Vector3.left) * Time.deltaTime * moveForce, ForceMode.Force);
         }
 
         private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext _)
         {
             if (_canJump)
             {
-                _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+                _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 _canJump = false;
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-         //   if (collision.collider.CompareTag(Layers.Ground))
-           //     _canJump = true;
+            if (collision.collider.CompareTag(Tags.Ground))
+                _canJump = true;
         }
 
         private void OnDisable()
         {
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Jump.started -= OnJump;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.started -= OnMoveStarted;
-            ServiceProvider.Instance.GetService<InputManager>().InputSystem.Player.Move.canceled -= OnMoveCanceled;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Jump.started -= OnJump;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.started -= OnMoveStarted;
+            ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.Move.canceled -= OnMoveCanceled;
         }
     }
 }

@@ -1,68 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.Service
+namespace Code.Service
 {
     public sealed class ServiceProvider
     {
-        private static ServiceProvider instance;
+        private static ServiceProvider _instance;
         public static ServiceProvider Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new ServiceProvider();
+                    _instance = new ServiceProvider();
                 }
-                return instance;
+                return _instance;
             }
-            private set => instance = value;
+            private set => _instance = value;
         }
 
-        private readonly Dictionary<Type, IService> services = new Dictionary<Type, IService>();
+        private readonly Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
 
         private ServiceProvider() { }
 
-        public void AddService<ServiceType>(IService service) where ServiceType : class, IService
+        public void AddService<TServiceType>(IService service) where TServiceType : class, IService
         {
-            if (!services.ContainsKey(typeof(ServiceType)))
-                services.Add(typeof(ServiceType), service);
+            if (!_services.ContainsKey(typeof(TServiceType)))
+                _services.Add(typeof(TServiceType), service);
         }
 
-        public bool RemoveService<ServiceType>() where ServiceType : class, IService
+        public bool RemoveService<TServiceType>() where TServiceType : class, IService
         {
-            if (!services.ContainsKey(typeof(ServiceType)))
+            if (!_services.ContainsKey(typeof(TServiceType)))
                 throw new KeyNotFoundException();
 
-            return services.Remove(typeof(ServiceType));
+            return _services.Remove(typeof(TServiceType));
         }
 
-        public bool ContainsService<ServiceType>() where ServiceType : class, IService
+        public bool ContainsService<TServiceType>() where TServiceType : class, IService
         {
-            return services.ContainsKey(typeof(ServiceType));
+            return _services.ContainsKey(typeof(TServiceType));
         }
 
-        public ServiceType GetService<ServiceType>() where ServiceType : class, IService
+        public TServiceType GetService<TServiceType>() where TServiceType : class, IService
         {
-            return services[typeof(ServiceType)] as ServiceType;
+            return _services[typeof(TServiceType)] as TServiceType;
         }
 
         public void ClearAllServices()
         {
-            services.Clear();
+            _services.Clear();
         }
 
         public void ClearAllNonPersistanceServices()
         {
             List<Type> nonPersistanceServiceTypes = new List<Type>();
-            foreach (KeyValuePair<Type, IService> service in services)
+            foreach (KeyValuePair<Type, IService> service in _services)
             {
                 if (!service.Value.IsPersistance)
                     nonPersistanceServiceTypes.Add(service.Key);
             }
             foreach (Type keyToRemove in nonPersistanceServiceTypes)
             {
-                services.Remove(keyToRemove);
+                _services.Remove(keyToRemove);
             }
         }
     }

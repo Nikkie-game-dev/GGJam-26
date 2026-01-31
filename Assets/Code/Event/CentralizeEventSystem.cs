@@ -1,6 +1,6 @@
 
 #nullable enable
-using Assets.Code.Service;
+using Code.Service;
 using System;
 using System.Collections.Generic;
 

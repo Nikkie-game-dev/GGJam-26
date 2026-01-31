@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Code.SceneManagerController
+namespace Code.SceneManagerController
 {
     [Serializable]
     public class SceneRef : ISerializationCallbackReceiver

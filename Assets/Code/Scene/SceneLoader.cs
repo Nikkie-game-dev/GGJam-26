@@ -1,16 +1,15 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Code.SceneManagerController
+namespace Code.SceneManagerController
 {
     public class SceneLoader
     {
 #if UNITY_EDITOR
-        [SerializeField] private SceneRef exclude;
+        [SerializeField] private SceneRef _exclude;
 #endif
 
         public SceneLoader()
