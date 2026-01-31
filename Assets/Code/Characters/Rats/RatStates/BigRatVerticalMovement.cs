@@ -9,7 +9,7 @@ namespace Code.Characters.Rats.RatStates
 
         public BigRatVerticalMovement(params object[] args) : base(args)
         {
-            _otherState = (IStatable.MovementAxis)args[4];
+            _otherState = (IStatable.MovementAxis)args[3];
         }
 
         public override void Tick(float deltaTime)

@@ -1,7 +1,7 @@
 ﻿using Code.Characters.Rats.RatStates;
 using UnityEngine;
 
-namespace Assets.Code.Characters.Rats
+namespace Code.Characters.RatsMovBig
 {
 
     [RequireComponent(typeof(Rigidbody))]
@@ -9,22 +9,20 @@ namespace Assets.Code.Characters.Rats
     public class BigRatMovement : MonoBehaviour, IStatable
     {
         private Rigidbody _rb;
-        private BoxCollider _collider;
 
         private RatState _currentState;
 
-        private RatState horizontalMovement;
-        private RatState verticalMovement;
+        private RatState _horizontalMovement;
+        private RatState _verticalMovement;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
-            _collider = GetComponent<BoxCollider>();
 
-            verticalMovement = new BigRatVerticalMovement(this, _rb, _collider, 700f, IStatable.MovementAxis.Horizontal);
-            horizontalMovement = new BigRatHorizontalMovement(this, _rb, _collider, 500f , IStatable.MovementAxis.Vertical);
+            _verticalMovement = new BigRatVerticalMovement(this, _rb, 700f, IStatable.MovementAxis.Horizontal);
+            _horizontalMovement = new BigRatHorizontalMovement(this, _rb, 500f , IStatable.MovementAxis.Vertical);
 
-            _currentState = horizontalMovement;
+            _currentState = _horizontalMovement;
         }
 
         private void Update()

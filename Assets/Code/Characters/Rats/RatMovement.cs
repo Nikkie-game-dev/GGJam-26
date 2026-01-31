@@ -14,16 +14,14 @@ namespace Code.Characters.Rats
     public sealed class RatMovement : MonoBehaviour, IStatable
     {
         private Rigidbody _rb;
-        private BoxCollider _collider;
 
         private RatState _currentState;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
-            _collider = GetComponent<BoxCollider>();
 
-            _currentState = new RatHorizontalMovement(this, _rb, _collider, 400f);
+            _currentState = new RatHorizontalMovement(this, _rb, 400f);
         }
 
         private void Update()

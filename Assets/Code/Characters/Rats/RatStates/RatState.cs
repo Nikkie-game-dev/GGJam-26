@@ -6,21 +6,18 @@ namespace Code.Characters.Rats.RatStates
     {
         private IStatable _statable;
         private Rigidbody _rb;
-        private BoxCollider _collider;
         private float _movementForce;
 
 
         protected IStatable StateManager => _statable;
         protected Rigidbody RB => _rb;
-        protected BoxCollider BoxCollider => _collider;
         protected float MovementForce => _movementForce;
 
         public RatState(params object[] args)
         {
             _statable = (IStatable)args[0];
             _rb = (Rigidbody)args[1];
-            _collider = (BoxCollider)args[2];
-            _movementForce = (float)args[3];
+            _movementForce = (float)args[2];
         }
 
         public abstract void Tick(float deltaTime);
