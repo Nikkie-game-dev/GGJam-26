@@ -1,28 +1,32 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using UnityEngine;
 
-public class PlayerDataHandler : MonoBehaviour
+public sealed class PlayerDataHandler
 {
-    private FileHandler<List<PlayerData>> _fileHandler;
-    [SerializeField] private string _dataFileName;
+
+    private FileHandler<PlayerData> _fileHandler;
+    private string _dataFileName = "SaveFile";
     private List<PlayerData> _data;
 
-    private void Start()
+    public PlayerDataHandler()
     {
-        _fileHandler = new FileHandler<List<PlayerData>>(Application.persistentDataPath, _dataFileName);
+        _fileHandler = new FileHandler<PlayerData>(Application.persistentDataPath, _dataFileName);
     }
 
     public void SavePlayerData(string name, int score)
     {
-        _data = _fileHandler.Load();
-
-        if (_data == null)
+        if (!_fileHandler.TryLoadCollection(out _data))
             _data = new List<PlayerData>();
+        
+        PlayerData test = new PlayerData();
+        test.name = name;
+        test.score = score;
 
-        _data.Add(new(name, score));
+        _data.Add(test);
 
-        _fileHandler.Save(_data);
+        _fileHandler.SaveCollection(_data);
     }
 
     public List<PlayerData> GetAllPlayersData()
@@ -31,7 +35,8 @@ public class PlayerDataHandler : MonoBehaviour
 
         try
         {
-            playerDatas = _fileHandler.Load();
+            if (_fileHandler.TryLoadCollection(out playerDatas))
+                return playerDatas;
         }
         catch (System.Exception error)
         {
@@ -39,43 +44,36 @@ public class PlayerDataHandler : MonoBehaviour
             throw;
         }
 
-        return playerDatas;
+        return null;
     }
 }
 
-public struct PlayerData
+public class PlayerData
 {
-    public string name;
-    public int score;
-
-    public PlayerData(string name, int score)
-    {
-        this.name = name;
-        this.score = score;
-    }
+    public string name { get; set; }
+    public int score { get; set; }
 }
 
-public class FileHandler<T>
+public sealed class FileHandler<T>
 {
-    private string _dataDirPath;
-    private string _dataFileName;
-
     private string _fullPath;
 
     public FileHandler(string dataDirPath, string dataFileName)
     {
-        this._dataDirPath = dataDirPath;
-        this._dataFileName = dataFileName;
         this._fullPath = Path.Combine(dataDirPath, dataFileName);
     }
 
+    /// <summary>
+    /// Saves data. Not intended for collections
+    /// </summary>
+    /// <param name="data"></param>
     public void Save(T data)
     {
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(_fullPath));
 
-            string toStore = JsonUtility.ToJson(data);
+            string toStore = JsonUtility.ToJson(data, true);
 
             using (FileStream stream = new FileStream(_fullPath, FileMode.Create))
             {
@@ -92,23 +90,55 @@ public class FileHandler<T>
         }
     }
 
-    public T Load()
+    public void SaveCollection(List<T> data)
     {
-        T data = default;
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(_fullPath));
+
+            string serializedData = JsonSerializer.Serialize(data);
+
+            using (FileStream stream = new FileStream(_fullPath, FileMode.Create))
+            {
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    writer.Write(serializedData);
+                }
+            }
+        }
+        catch (System.Exception error)
+        {
+            Debug.LogException(error);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Loads data. Not intended for collections
+    /// </summary>
+    /// <param name="data"></param>
+    public bool TryLoadCollection(out List<T> data)
+    {
+        data = new List<T>();
 
         try
         {
             string dataToLoad = "";
 
-            using (FileStream stream = new FileStream(_fullPath, FileMode.Create))
+            if (File.Exists(_fullPath))
             {
-                using (StreamReader reader = new StreamReader(stream))
+                using (FileStream stream = new FileStream(_fullPath, FileMode.Open))
                 {
-                    dataToLoad = reader.ReadToEnd();
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        dataToLoad = reader.ReadToEnd();
+                    }
                 }
-            }
 
-            data = JsonUtility.FromJson<T>(dataToLoad);
+                data = JsonSerializer.Deserialize<List<T>>(dataToLoad);
+
+                return true;
+            }
         }
         catch (System.Exception error)
         {
@@ -116,7 +146,52 @@ public class FileHandler<T>
             throw;
         }
 
-        return data;
+        return false;
     }
+
+    /// <summary>
+    /// Loads data. Not intended for collections
+    /// </summary>
+    /// <param name="data"></param>
+    public bool TryLoad(out T data)
+    {
+        data = default(T);
+
+        try
+        {
+            string dataToLoad = "";
+
+            if (File.Exists(_fullPath))
+            {
+                using (FileStream stream = new FileStream(_fullPath, FileMode.Open))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        dataToLoad = reader.ReadToEnd();
+                    }
+                }
+
+                data = JsonUtility.FromJson<T>(dataToLoad);
+
+                return true;
+            }
+        }
+        catch (System.Exception error)
+        {
+            Debug.LogError(error);
+            throw;
+        }
+
+        return false;
+    }
+
+
+    //public void SaveCollection(List<T> data)
+    //{
+    //    string serializedData = JsonSerializer.Serialize(data);
+
+    //    SaveSerializedData(serializedData, data.Count);
+    //}
+
 }
 
