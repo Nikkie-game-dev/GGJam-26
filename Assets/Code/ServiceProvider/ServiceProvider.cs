@@ -21,7 +21,7 @@ namespace Assets.Code.Service
 
         private readonly Dictionary<Type, IService> services = new Dictionary<Type, IService>();
 
-        public ServiceProvider() { }
+        private ServiceProvider() { }
 
         public void AddService<ServiceType>(IService service) where ServiceType : class, IService
         {
