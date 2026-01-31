@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Assets.Code.ServiceProvider
+namespace Assets.Code.Service
 {
-    internal class ServiceProvider
+    public sealed class ServiceProvider
     {
         private static ServiceProvider instance;
         public static ServiceProvider Instance
@@ -24,7 +21,7 @@ namespace Assets.Code.ServiceProvider
 
         private readonly Dictionary<Type, IService> services = new Dictionary<Type, IService>();
 
-        private ServiceProvider() { }
+        public ServiceProvider() { }
 
         public void AddService<ServiceType>(IService service) where ServiceType : class, IService
         {
