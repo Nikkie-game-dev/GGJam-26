@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider))]
 public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
@@ -17,6 +18,9 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
 
     Collider col;
 
+    [SerializeField] Image image;
+
+
     private void Reset()
     {
         col.isTrigger = true;
@@ -27,6 +31,22 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
         col = GetComponent<Collider>();
         col.isTrigger = true;
         mpb = new MaterialPropertyBlock();
+    }
+
+    private void Start()
+    {
+        AdjustSelf();
+    }
+
+    private void AdjustSelf()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, float.MaxValue))
+        {
+            CapsuleCollider collider = GetComponent<CapsuleCollider>();
+            float radious = collider.radius + collider.radius * 0.5f;
+
+            transform.position = new Vector3(transform.position.x, hit.point.y + radious, transform.position.z);
+        }
     }
 
     private void Update()

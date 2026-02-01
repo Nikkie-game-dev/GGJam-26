@@ -13,7 +13,6 @@ public class InvisibleWallComponent : MonoBehaviour, IInteractible
     [SerializeField][Range(0.1f, 2f)]
     private float _timeToFadeInSeconds = 0.3f;
     [SerializeField][Tooltip("This mesh must have OpacityTweak Shader")]
-    private Renderer _wallMesh;
     private Material _material;
 
     public void OnValidate()
@@ -23,13 +22,14 @@ public class InvisibleWallComponent : MonoBehaviour, IInteractible
 
     private void Awake()
     {
-        _material = _wallMesh.material;
+        _material = GetComponent<Renderer>().material;
     }
 
     public void Interact(GameObject interactor)
     {
         StartCoroutine(Interact_Implementation());
     }
+
     public void ExitInteraction(GameObject interactionOrigin)
     {
         StartCoroutine(ExitInteraction_Implementation());

@@ -20,11 +20,24 @@ public class FlowerBase : MonoBehaviour
     }
     public void Awake()
     {
-        if(TryGetComponent<ParticleSystem>(out _onDestroyParticles));
+        AjustSelf();
+
+        if (TryGetComponent<ParticleSystem>(out _onDestroyParticles));
         if (TryGetComponent<Animation>(out _onDestroyAnimation)) ;
         if (TryGetComponent<AudioClip>(out _onDestroySound)) ;
     }
     
+    void AjustSelf()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, float.MaxValue))
+        {
+            BoxCollider collider = GetComponent<BoxCollider>();
+            float radious = collider.size.y * 0.5f;
+
+            transform.position = new Vector3(transform.position.x, hit.point.y + radious, transform.position.z);
+        }
+    }
+
     public void Interact(GameObject interactionOrigin)
     {
         if (!bIsAlreadyActived)
