@@ -20,7 +20,6 @@ namespace Code.Manager
 
         private void Start()
         {
-            //TODO: get player data from player data file manager here
             _playerDataHandler = new PlayerDataHandler(_playersFileData);
 
             RefreshData();
