@@ -2,8 +2,6 @@ using System;
 using Code.Service;
 using Systems.CentralizeEventSystem;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 
 public delegate void OnLifeTimeEqualsZero();
