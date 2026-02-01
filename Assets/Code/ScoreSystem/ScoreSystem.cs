@@ -14,7 +14,7 @@ namespace Code.ScoreSystem
         private List<ScoreType> scoreTypes;
 
         private bool _timerOn;
-        private PlayerDataHandler _playerDataHandler = new();
+        private PlayerDataHandler _playerDataHandler = new("Save");
 
         public float CurrentTimeLeft { get; private set; }
         
