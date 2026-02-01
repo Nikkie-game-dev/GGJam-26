@@ -1810,6 +1810,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 16987331}
     m_Modifications:
+    - target: {fileID: 2245573118887947088, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245573118887947088, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 62b91873d3ace994f85feb8b98856502, type: 3}
+    - target: {fileID: 2245573118887947088, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245573118887947088, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1649087707}
+    - target: {fileID: 2245573118887947088, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245573118887947088, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Code.MainMenu.MainMenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245573118887947088, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2719473831195091572, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1894,6 +1922,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tab_Credits
       objectReference: {fileID: 0}
+    - target: {fileID: 5534807326800762380, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5534807326800762380, guid: 33c702de90c1f244c9a56a0f0ce23a94, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eb6a769aaba0e264f87b7757f947b92b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
