@@ -1,3 +1,4 @@
+using Code.Manager;
 using Code.Service;
 using Systems.CentralizeEventSystem;
 using Systems.TagClassGenerator;
@@ -22,7 +23,7 @@ public class TESTKillZone : MonoBehaviour
 
         ServiceProvider.Instance.GetService<CentralizeEventSystem>().Get<PlayerDies>()?.Invoke();
 
-        Invoke(nameof(ReloadScene), respawnDelay);
+        ServiceProvider.Instance.GetService<CentralizeEventSystem>().Get<LoadMainManuScene>()?.Invoke();
     }
 
     private void ReloadScene()

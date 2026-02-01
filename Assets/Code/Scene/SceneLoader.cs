@@ -21,23 +21,11 @@ namespace Code.SceneManagerController
 
         private void StartLoading(SceneRef sceneRef, LoadSceneMode mode)
         {
-            try
-            {
-                SceneManager.LoadScene(sceneRef.Index, mode);
+            SceneManager.LoadScene(sceneRef.Index, mode);
 
-                Scene loadedScene = SceneManager.GetSceneByBuildIndex(sceneRef.Index);
+            Scene loadedScene = SceneManager.GetSceneByBuildIndex(sceneRef.Index);
 
-                if (loadedScene.IsValid() && loadedScene.isLoaded)
-                    _activeScenes.Add(loadedScene);
-                else
-                    throw new Exception($"The Scene with name {sceneRef.Name} didn't load correctly.");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"{sceneRef.Name} {{{sceneRef.Index}}}: is not on the loading list");
-
-                Debug.LogException(e);
-            }
+            _activeScenes.Add(loadedScene);
         }
 
         private void StartUnloading(Scene activeScenes)
@@ -73,7 +61,7 @@ namespace Code.SceneManagerController
         public void LoadSceneAsync(params SceneRef[] sceneRef)
         {
             foreach (SceneRef t in sceneRef)
-               LoadScene(t);
+                LoadScene(t);
         }
 
         /// <inheritdoc/>

@@ -1,11 +1,11 @@
 using System.Collections;
+using Code.Manager;
 using Code.Service;
 using Systems.CentralizeEventSystem;
 using UnityEngine;
 
 namespace Code.MainMenu
 {
-    public delegate void OnGameStart();
     public class MainMenuManager : MonoBehaviour
     {
         [Header("Menu Tabs")] 
@@ -36,7 +36,9 @@ namespace Code.MainMenu
         {
             if (bIsAnyCoroutineActive)
                 return;
-        
+
+            ServiceProvider.Instance.GetService<CentralizeEventSystem>().Get<LoadGamplayScene>()?.Invoke();
+
             bIsAnyCoroutineActive = true;
             StartCoroutine(StartGameButton_Implementation());
         }
@@ -91,7 +93,6 @@ namespace Code.MainMenu
         private IEnumerator StartGameButton_Implementation()
         {
             yield return StartCoroutine(FadeOutTab(_mainTab, false));
-            _centralizeEventSystem.Get<OnGameStart>()?.Invoke();
             _mainTab.gameObject.SetActive(false);
             bIsAnyCoroutineActive = false;
         }
@@ -152,6 +153,7 @@ namespace Code.MainMenu
             if (bDeactivateObject)
                 tabOut.gameObject.SetActive(false);
         }
+
         private IEnumerator FadeInTab(CanvasGroup tabIn)
         {
             float t = 0;

@@ -1,4 +1,5 @@
 using Code.InputMG;
+using Code.Manager;
 using Code.Service;
 using Systems.CentralizeEventSystem;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine.InputSystem;
 
 namespace Code.Menu
 {
-    public delegate void ReturnToMainMenu();
     public class PauseMenu : MonoBehaviour
     {
         [SerializeField] private GameObject settings;
@@ -14,9 +14,8 @@ namespace Code.Menu
         
         private float _originalTimeScale = 1;
         private bool _isPaused;
-        private CentralizeEventSystem _centralizeEventSystem = ServiceProvider.Instance.GetService<CentralizeEventSystem>();
         
-        private void OnEnable()
+        private void Start()
         {
             ServiceProvider.Instance.GetService<InputManager>().InputSystem.UI.Pause.started += PauseInput;
         }
@@ -27,7 +26,6 @@ namespace Code.Menu
                 Pause();
             else
                 Unpause();
-            
         }
 
         private void Pause()
@@ -73,7 +71,7 @@ namespace Code.Menu
         public void GoToMainMenu()
         {
             UnpauseTime();
-            _centralizeEventSystem.Get<ReturnToMainMenu>()?.Invoke();
+            ServiceProvider.Instance.GetService<CentralizeEventSystem>().Get<LoadMainManuScene>()?.Invoke();
         }
 
         public void ReturnToPause()
