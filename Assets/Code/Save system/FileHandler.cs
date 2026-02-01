@@ -1,3 +1,5 @@
+using Code.FileManager;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -5,13 +7,25 @@ using UnityEngine;
 
 namespace Code.FileManager
 {
+    [CreateAssetMenu(fileName = "FileData", menuName = "FileData")]
+    public sealed class FileData : ScriptableObject
+    {
+        public string fileName;
+        public string FullPath => Path.Combine(Application.persistentDataPath, fileName);
+    }
+
     public sealed class FileHandler<T>
     {
         private string _fullPath;
 
-        public FileHandler(string dataDirPath, string dataFileName)
+        public FileHandler(string dataFileName)
         {
-            this._fullPath = Path.Combine(dataDirPath, dataFileName);
+            this._fullPath = Path.Combine(Application.persistentDataPath, dataFileName);
+        }
+
+        public FileHandler(FileData fileData)
+        {
+            this._fullPath = fileData.FullPath;
         }
 
         /// <summary>
@@ -136,30 +150,29 @@ namespace Code.FileManager
             return false;
         }
 
-
-        //public void SaveCollection(List<T> data)
-        //{
-        //    string serializedData = JsonSerializer.Serialize(data);
-
-        //    SaveSerializedData(serializedData, data.Count);
-        //}
-
+        public void RemoveFile()
+        {
+            if (File.Exists(_fullPath))
+                File.Delete(_fullPath);
+        }
     }
-
 }
 
 namespace Code.Player
 {
     public sealed class PlayerDataHandler
     {
-
         private FileManager.FileHandler<PlayerData> _fileHandler;
-        private string _dataFileName = "SaveFile";
         private List<PlayerData> _data;
 
-        public PlayerDataHandler()
+        public PlayerDataHandler(FileData fileData)
         {
-            _fileHandler = new FileManager.FileHandler<PlayerData>(Application.persistentDataPath, _dataFileName);
+            _fileHandler = new FileHandler<PlayerData>(fileData);
+        }
+
+        public PlayerDataHandler(string fileName)
+        {
+            _fileHandler = new FileHandler<PlayerData>(fileName);
         }
 
         public void SavePlayerData(string name, int score)
@@ -167,11 +180,11 @@ namespace Code.Player
             if (!_fileHandler.TryLoadCollection(out _data))
                 _data = new List<PlayerData>();
 
-            PlayerData test = new PlayerData();
-            test.name = name;
-            test.score = score;
+            PlayerData playerData = new PlayerData();
+            playerData.name = name;
+            playerData.score = score;
 
-            _data.Add(test);
+            _data.Add(playerData);
 
             _fileHandler.SaveCollection(_data);
         }
@@ -193,7 +206,13 @@ namespace Code.Player
 
             return null;
         }
+
+        public void RemoveAllPlayerData()
+        {
+            _fileHandler.RemoveFile();
+        }
     }
+
 
     public class PlayerData
     {
