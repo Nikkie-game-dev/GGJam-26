@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Gameplay.unity.meta
 guid: f17b2305d9b14ca458c8a4f2eecf29b6
+========
+guid: f633f8018c20cea429f3f0efed356e8f
+>>>>>>>> origin/NikkieG:Assets/Scenes/Pause.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

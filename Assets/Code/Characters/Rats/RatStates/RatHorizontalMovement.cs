@@ -1,7 +1,4 @@
-﻿using System;
-using Systems.LayerClassGenerator;
-using Systems.TagClassGenerator;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Code.Characters.Rats.RatStates
 {
