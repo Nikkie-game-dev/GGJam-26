@@ -21,7 +21,6 @@ public class ZiplineComponent : MonoBehaviour, IInteractible
     {
         if (!_bIsActive)
        timerHandle = StartCoroutine(Interact_Implementation(interactionOrigin));
-        InputManager.InputSystem.Player.Move.canceled += StopMoving;
     }
     public void ExitInteraction(GameObject interactionOrigin){}
     private IEnumerator Interact_Implementation(GameObject interactionOrigin)
@@ -47,11 +46,5 @@ public class ZiplineComponent : MonoBehaviour, IInteractible
         
         rb.isKinematic = false;
         _bIsActive = false;
-    }
-
-    private void StopMoving(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        StopCoroutine(timerHandle);
-       
     }
 }
