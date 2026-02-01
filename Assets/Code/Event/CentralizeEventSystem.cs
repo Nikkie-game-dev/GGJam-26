@@ -12,12 +12,12 @@ namespace Systems.CentralizeEventSystem
 
         bool IService.IsPersistance => false;
 
-        public void Register<TDelegate>(TDelegate del) where TDelegate : Delegate
+        public void Register<TDelegate>() where TDelegate : Delegate
         {
             Type type = typeof(TDelegate);
 
-            if (!_events.TryAdd(type, del))
-                _events[type] = Delegate.Combine(_events[type], del);
+            if (!_events.TryAdd(type, null))
+                _events[type] = Delegate.Combine(_events[type], null);
         }
 
         public void Unregister<TDelegate>() where TDelegate : Delegate
@@ -27,7 +27,7 @@ namespace Systems.CentralizeEventSystem
         }
         
         public TDelegate? Get<TDelegate>() where TDelegate : Delegate
-        {
+        { 
             Type type = typeof(TDelegate);
 
             if (_events.TryGetValue(type, out Delegate? del))

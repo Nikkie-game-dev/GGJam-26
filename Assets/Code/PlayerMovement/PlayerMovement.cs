@@ -50,7 +50,7 @@ namespace Code.Player
 
         private void OnMove()
         {
-            _rb.AddForce((MovementDir > 0 ? Vector3.right : Vector3.left) * Time.deltaTime * moveForce, ForceMode.Force);
+            _rb.AddForce((MovementDir > 0 ? Vector3.right : Vector3.left) * (Time.deltaTime * moveForce), ForceMode.Force);
         }
 
         private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext _)
