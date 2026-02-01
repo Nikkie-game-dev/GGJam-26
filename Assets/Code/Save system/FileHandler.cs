@@ -18,9 +18,9 @@ namespace Code.FileManager
     {
         private string _fullPath;
 
-        public FileHandler(string dataDirPath, string dataFileName)
+        public FileHandler(string dataFileName)
         {
-            this._fullPath = Path.Combine(dataDirPath, dataFileName);
+            this._fullPath = Path.Combine(Application.persistentDataPath, dataFileName);
         }
 
         public FileHandler(FileData fileData)
@@ -168,6 +168,11 @@ namespace Code.Player
         public PlayerDataHandler(FileData fileData)
         {
             _fileHandler = new FileHandler<PlayerData>(fileData);
+        }
+
+        public PlayerDataHandler(string fileName)
+        {
+            _fileHandler = new FileHandler<PlayerData>(fileName);
         }
 
         public void SavePlayerData(string name, int score)
