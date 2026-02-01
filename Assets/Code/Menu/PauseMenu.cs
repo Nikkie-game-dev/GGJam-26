@@ -1,17 +1,22 @@
-using System;
 using Code.InputMG;
 using Code.Service;
+using Systems.CentralizeEventSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Code.Menu
 {
+    public delegate void ReturnToMainMenu();
     public class PauseMenu : MonoBehaviour
     {
-        private float _originalTimeScale = 1;
-        private bool _isPaused = false;
+        [SerializeField] private GameObject settings;
+        [SerializeField] private GameObject pause;
         
-        private void Start()
+        private float _originalTimeScale = 1;
+        private bool _isPaused;
+        private CentralizeEventSystem _centralizeEventSystem = ServiceProvider.Instance.GetService<CentralizeEventSystem>();
+        
+        private void OnEnable()
         {
             ServiceProvider.Instance.GetService<InputManager>().InputSystem.UI.Pause.started += PauseInput;
         }
@@ -27,9 +32,8 @@ namespace Code.Menu
 
         private void Pause()
         {
-            _originalTimeScale = Time.timeScale;
-            Time.timeScale = 0;
-            gameObject.SetActive(true);
+            PauseTime();
+            pause.SetActive(true);
             
             //if cursor is not visible or lock state is not none
             /*Cursor.visible = true;
@@ -38,17 +42,44 @@ namespace Code.Menu
             _isPaused = true;
         }
 
+        private void PauseTime()
+        {
+            _originalTimeScale = Time.timeScale;
+            Time.timeScale = 0;
+        }
+
         public void Unpause()
         {
-            Time.timeScale = _originalTimeScale;
-            gameObject.SetActive(false);
+            UnpauseTime();
+            pause.SetActive(false);
             
             //restore cursor state
 
             _isPaused = false;
         }
-        
-        public void OpenSettings() => throw new NotImplementedException();
-        public void GoToMainMenu() => throw new NotImplementedException();
+
+        private void UnpauseTime()
+        {
+            Time.timeScale = _originalTimeScale;
+        }
+
+        public void OpenSettings()
+        {
+            settings.SetActive(true);
+            pause.SetActive(false);
+        }
+
+
+        public void GoToMainMenu()
+        {
+            UnpauseTime();
+            _centralizeEventSystem.Get<ReturnToMainMenu>()?.Invoke();
+        }
+
+        public void ReturnToPause()
+        {
+            settings.SetActive(false);
+            pause.SetActive(true);
+        }
     }
 }
