@@ -5,7 +5,8 @@
         enum MovementAxis
         {
             Horizontal,
-            Vertical
+            Vertical,
+            Falling
         }
 
         public void SetState(MovementAxis state);

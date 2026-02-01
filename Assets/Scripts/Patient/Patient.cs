@@ -4,13 +4,14 @@ using UnityEngine;
 public class Patient : MonoBehaviour
 {
     [Header("Patient Data")]
-    public PatientType patientType;
-    public int pointsGranted = 100;
+    [SerializeField] private PatientType patientType;
+    [SerializeField] private int pointsGranted = 100;
     private bool cured = false;
 
     public void Interact()
     {
-        if (cured) return;
+        if (cured) 
+            return;
 
         Cure();
     }

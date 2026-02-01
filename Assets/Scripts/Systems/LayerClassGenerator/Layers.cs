@@ -10,5 +10,7 @@ namespace Systems.LayerClassGenerator
     public const string Ignore_Raycast = "Ignore Raycast";
     public const string Water = "Water";
     public const string UI = "UI";
+    public const string Rat = "Rat";
+    public const string Ground = "Ground";
   }
 }

@@ -26,6 +26,7 @@ namespace Code.Characters.Rats.RatStates
 
         public virtual void OnCollisionExit(Collision collider)
         {
+            StateManager.SetState(IStatable.MovementAxis.Falling);
         }
     }
 }

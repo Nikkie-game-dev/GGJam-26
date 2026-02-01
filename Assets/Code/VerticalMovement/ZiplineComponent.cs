@@ -7,32 +7,32 @@ using UnityEngine.InputSystem;
 
 public class ZiplineComponent : MonoBehaviour, IInteractible
 {
-    [SerializeField] 
+    [SerializeField]
     private List<Transform> _wayPoints;
-    [SerializeField] [Range(0f, 3f)] 
+    [SerializeField]
+    [Range(0f, 3f)]
     private float _timeToWalkAllTheZiplineInSeconds;
 
+    Rigidbody rb;
 
     private bool _bIsActive = false;
     private Coroutine timerHandle;
-    
-    InputManager InputManager => ServiceProvider.Instance.GetService<InputManager>();
     public void Interact(GameObject interactionOrigin)
     {
         if (!_bIsActive)
-       timerHandle = StartCoroutine(Interact_Implementation(interactionOrigin));
-        InputManager.InputSystem.Player.Move.canceled += StopMoving;
+            timerHandle = StartCoroutine(Interact_Implementation(interactionOrigin));
     }
-    public void ExitInteraction(GameObject interactionOrigin){}
+
+    public void ExitInteraction(GameObject interactionOrigin) { }
     private IEnumerator Interact_Implementation(GameObject interactionOrigin)
     {
         _bIsActive = true;
         float individualTimeForEachSegment = _timeToWalkAllTheZiplineInSeconds / _wayPoints.Count;
         float t = 0;
         Transform targetTransform = interactionOrigin.transform;
-        Rigidbody rb = interactionOrigin.GetComponent<Rigidbody>();
+        rb = interactionOrigin.GetComponent<Rigidbody>();
         rb.isKinematic = true;
-        
+
         for (int i = 0; i < _wayPoints.Count; i++)
         {
             Vector3 initialPosition = targetTransform.position;
@@ -44,14 +44,8 @@ public class ZiplineComponent : MonoBehaviour, IInteractible
             }
             t = 0f;
         }
-        
+
         rb.isKinematic = false;
         _bIsActive = false;
-    }
-
-    private void StopMoving(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        StopCoroutine(timerHandle);
-       
     }
 }

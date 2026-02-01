@@ -1,5 +1,10 @@
+using Code.Service;
+using Systems.CentralizeEventSystem;
+using Systems.TagClassGenerator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+public delegate void PlayerDies();
 public class TESTKillZone : MonoBehaviour
 {
     [SerializeField] private float respawnDelay = 0.25f;
@@ -12,9 +17,11 @@ public class TESTKillZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag(Tags.Player))
             return;
-        Destroy(other);
+
+        ServiceProvider.Instance.GetService<CentralizeEventSystem>().Get<PlayerDies>()?.Invoke();
+
         Invoke(nameof(ReloadScene), respawnDelay);
     }
 

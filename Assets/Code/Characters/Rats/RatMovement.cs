@@ -1,4 +1,5 @@
 ﻿using Code.Characters.Rats.RatStates;
+using Systems.LayerClassGenerator;
 using UnityEngine;
 
 namespace Code.Characters.Rats
@@ -8,15 +9,17 @@ namespace Code.Characters.Rats
     [RequireComponent(typeof(BoxCollider))]
     public sealed class RatMovement : MonoBehaviour, IStatable
     {
-        private Rigidbody _rb;
-
         private RatState _currentState;
+
+        [SerializeField] private float _movementSpeed;
 
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody>();
+            Rigidbody _rb = GetComponent<Rigidbody>();
 
-            _currentState = new RatHorizontalMovement(this, _rb, 400f);
+            _rb.excludeLayers = LayerMask.GetMask(Layers.Rat);
+
+            _currentState = new RatHorizontalMovement(this, _rb, _movementSpeed);
         }
 
         private void Update()

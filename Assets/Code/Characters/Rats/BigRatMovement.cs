@@ -1,4 +1,6 @@
-﻿using Code.Characters.Rats.RatStates;
+﻿using Assets.Code.Characters.Rats.RatStates;
+using Code.Characters.Rats.RatStates;
+using Systems.LayerClassGenerator;
 using UnityEngine;
 
 namespace Code.Characters.RatsMovBig
@@ -8,19 +10,22 @@ namespace Code.Characters.RatsMovBig
     [RequireComponent(typeof(BoxCollider))]
     public class BigRatMovement : MonoBehaviour, IStatable
     {
-        private Rigidbody _rb;
+        [SerializeField] float _movementForce = 600f;
 
         private RatState _currentState;
 
         private RatState _horizontalMovement;
         private RatState _verticalMovement;
+        private RatState _fallingMovement;
 
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody>();
+            Rigidbody _rb = GetComponent<Rigidbody>();
+            _rb.excludeLayers = LayerMask.GetMask(Layers.Rat);
 
-            _verticalMovement = new BigRatVerticalMovement(this, _rb, 700f, IStatable.MovementAxis.Horizontal);
-            _horizontalMovement = new BigRatHorizontalMovement(this, _rb, 500f , IStatable.MovementAxis.Vertical);
+            _verticalMovement = new BigRatVerticalMovement(this, _rb, _movementForce, IStatable.MovementAxis.Horizontal);
+            _horizontalMovement = new BigRatHorizontalMovement(this, _rb, _movementForce, IStatable.MovementAxis.Vertical);
+            _fallingMovement = new RatFallState(this, _rb, _movementForce, GetComponent<BoxCollider>());
 
             _currentState = _horizontalMovement;
         }
@@ -46,6 +51,7 @@ namespace Code.Characters.RatsMovBig
             {
                 IStatable.MovementAxis.Horizontal => _horizontalMovement,
                 IStatable.MovementAxis.Vertical => _verticalMovement,
+                IStatable.MovementAxis.Falling => _fallingMovement,
                 _ => _currentState
             };
         }

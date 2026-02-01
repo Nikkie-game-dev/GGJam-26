@@ -33,6 +33,7 @@ public class FlowerBase : MonoBehaviour
             StartCoroutine(Interact_Implementation(interactionOrigin));
         }
     }
+
     private IEnumerator Interact_Implementation(GameObject interactionOrigin)
     {
         StartCoroutine(OnDestroyAnimation_Execution());

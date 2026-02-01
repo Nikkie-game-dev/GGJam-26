@@ -24,7 +24,7 @@ namespace Code.Characters.Rats.RatStates
         public override void OnCollisionExit(Collision collider)
         {
             if (collider.collider.CompareTag(Tags.Wall))
-                StateManager.SetState(_otherState);
+                StateManager.SetState(IStatable.MovementAxis.Falling);
         }
     }
 }

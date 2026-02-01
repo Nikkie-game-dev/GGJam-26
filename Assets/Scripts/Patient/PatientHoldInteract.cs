@@ -8,7 +8,6 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
     [SerializeField] private PatientSO patientData;
     [SerializeField] private ScoreStateSO scoreState;
 
-
     private bool playerInRange;
     private bool isHolding;
     private bool cured;
@@ -16,19 +15,17 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
     private GameObject currentInteractor;
     private MaterialPropertyBlock mpb;
 
+    Collider col;
 
     private void Reset()
     {
-        var col = GetComponent<Collider>();
         col.isTrigger = true;
     }
 
     private void Awake()
     {
-
-        var col = GetComponent<Collider>();
+        col = GetComponent<Collider>();
         col.isTrigger = true;
-
         mpb = new MaterialPropertyBlock();
     }
 
@@ -72,9 +69,7 @@ public class PatientHoldInteract : MonoBehaviour, IHoldInteractable
         scoreState.Add(patientData.scoreValue);
         Destroy(this.gameObject, 0.1f);
 
-        GetComponent<Collider>().enabled = false;
-
-
+        col.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
