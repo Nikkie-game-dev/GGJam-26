@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Code.Player;
 using UnityEngine;
 
 namespace Code.ScoreSystem
@@ -13,6 +14,7 @@ namespace Code.ScoreSystem
         private List<ScoreType> scoreTypes;
 
         private bool _timerOn;
+        private PlayerDataHandler _playerDataHandler = new();
 
         public float CurrentTimeLeft { get; private set; }
         
@@ -47,7 +49,7 @@ namespace Code.ScoreSystem
                 finalScore += level.Score;
             }
             
-            //SaveScore
+            _playerDataHandler.SavePlayerData(username, finalScore);
         }
 
         private void EndTimer()
