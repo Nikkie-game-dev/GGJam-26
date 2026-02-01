@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class CreditsManager : MonoBehaviour
+namespace Code.MainMenu
 {
-    public void OpenURL(string url)
+    public class CreditsManager : MonoBehaviour
     {
-        Application.OpenURL(url);
+        public void OpenURL(string url)
+        {
+            Application.OpenURL(url);
+        }
     }
 }
