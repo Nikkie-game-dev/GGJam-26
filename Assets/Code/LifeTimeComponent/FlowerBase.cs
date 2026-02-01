@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 
 [RequireComponent(typeof(BoxCollider))]
-public class FlowerBase : MonoBehaviour, IInteractible
+public class FlowerBase : MonoBehaviour
 {
     [Header("Time properties")]
     [SerializeField] [Tooltip("The amount of time the item adds to the player")] private float _timeAmount;
@@ -13,7 +13,6 @@ public class FlowerBase : MonoBehaviour, IInteractible
     private ParticleSystem _onDestroyParticles;
     private Animation _onDestroyAnimation;
     private AudioClip _onDestroySound;
-
     private bool bIsAlreadyActived = false;
     public void OnValidate()
     {

@@ -31,7 +31,7 @@ public class LifeTimeComponent : MonoBehaviour
 
         if (_currentLifeTime <= 0 && _centralizeEventSystem != null)
         {
-            _centralizeEventSystem.Get<OnLifeTimeEqualsZero>().Invoke();
+            _centralizeEventSystem.Get<OnLifeTimeEqualsZero>()?.Invoke();
         }
     }
 
