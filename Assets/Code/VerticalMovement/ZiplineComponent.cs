@@ -5,12 +5,13 @@ using Code.Service;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Zipline : MonoBehaviour, IInteractible
+public class ZiplineComponent : MonoBehaviour, IInteractible
 {
     [SerializeField] 
     private List<Transform> _wayPoints;
     [SerializeField] [Range(0f, 3f)] 
     private float _timeToWalkAllTheZiplineInSeconds;
+
 
     private bool _bIsActive = false;
     private Coroutine timerHandle;
@@ -22,6 +23,7 @@ public class Zipline : MonoBehaviour, IInteractible
        timerHandle = StartCoroutine(Interact_Implementation(interactionOrigin));
         InputManager.InputSystem.Player.Move.canceled += StopMoving;
     }
+    public void ExitInteraction(GameObject interactionOrigin){}
     private IEnumerator Interact_Implementation(GameObject interactionOrigin)
     {
         _bIsActive = true;

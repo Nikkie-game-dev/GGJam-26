@@ -3,6 +3,7 @@ using Code.Service;
 using Systems.TagClassGenerator;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Code.Player
 {
@@ -77,6 +78,14 @@ namespace Code.Player
             if (other.gameObject.TryGetComponent<IInteractible>(out IInteractible interactibleObject))
             {
                 interactibleObject.Interact(gameObject);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<IInteractible>(out IInteractible interactibleObject))
+            {
+                interactibleObject.ExitInteraction(gameObject);
             }
         }
 

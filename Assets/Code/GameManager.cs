@@ -9,7 +9,7 @@ namespace Code.Manager
     {
         private void Awake()
         {
-            ServiceProvider.Instance.AddService<InputManager>(new InputManager());
+            ServiceProvider.Instance.AddService<InputMG.InputManager>(new InputManager());
             ServiceProvider.Instance.AddService<CentralizeEventSystem>(new CentralizeEventSystem());
         }
     }

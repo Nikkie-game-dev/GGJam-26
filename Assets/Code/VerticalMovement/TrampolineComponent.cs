@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Trampoline : MonoBehaviour, IJumpable
+public class TrampolineComponent : MonoBehaviour, IJumpable
 {
     [Header("Attributes")]
     [SerializeField][Range(0f, 100f)] 
