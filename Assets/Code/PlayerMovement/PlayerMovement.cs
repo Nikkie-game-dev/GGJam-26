@@ -1,7 +1,9 @@
-﻿using Code.Service;
+﻿using System;
+using Code.Service;
 using Systems.TagClassGenerator;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Code.Player
 {
@@ -12,7 +14,7 @@ namespace Code.Player
         private float MovementDir => ServiceProvider.Instance.GetService<InputMG.InputManager>().InputSystem.Player.MovingDir.ReadValue<float>();
 
         private bool _canJump = false;
-
+        
         private Rigidbody _rb;
 
         [FormerlySerializedAs("_jumpForce")] [SerializeField] private float jumpForce = 10;
@@ -66,6 +68,25 @@ namespace Code.Player
         {
             if (collision.collider.CompareTag(Tags.Ground))
                 _canJump = true;
+            
+            if (collision.gameObject.TryGetComponent<IJumpable>(out IJumpable jumpable))
+            jumpable.JumpOn(gameObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<IInteractible>(out IInteractible interactibleObject))
+            {
+                interactibleObject.Interact(gameObject);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<IInteractible>(out IInteractible interactibleObject))
+            {
+                interactibleObject.ExitInteraction(gameObject);
+            }
         }
 
         private void OnDisable()
